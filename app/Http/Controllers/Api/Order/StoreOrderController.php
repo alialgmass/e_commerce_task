@@ -6,6 +6,7 @@ use App\Events\NewOrderNotification;
 use App\Http\Controllers\Base\ApiController;
 use App\Http\Requests\Api\Order\StoreRequest;
 
+use App\Http\Resources\order\OrderResource;
 use App\Repositories\OrderRepository;
 
 
@@ -26,6 +27,6 @@ class StoreOrderController extends ApiController
            return $this->getResponse(404,'No element in cart ');
         }
        event( new NewOrderNotification($order));
-        return $this->getResponse(200 ,'Order created successfully',['order'=>$order]);
+        return $this->getResponse(200 ,'Order created successfully',['order'=>OrderResource::make($order)]);
     }
 }
